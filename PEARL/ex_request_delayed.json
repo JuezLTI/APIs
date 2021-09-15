@@ -1,0 +1,14 @@
+{
+    "id": 2,
+    "date": "2021-06-29T09:01:01",
+    
+    "request": {
+	"date": "2021-06-29T09:01:00",
+	"capability": "XPath-evaluator",
+	"code": "count(//node())",
+	"learningObject": "http://jueslti.eu/exercise/123"
+    },
+    "reply": {
+	"token": 123
+    }
+}

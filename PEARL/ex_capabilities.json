@@ -1,0 +1,43 @@
+{
+    "id": 123,
+    "date": "2021-06-29T09:00:01",
+    
+    "request": {
+	"date": "2021-06-29T09:00:00"
+	
+    },
+    "reply": {
+	"capabilities" : [
+	    {
+		"id": "XPath-evaluator",
+		"features": [
+		    {
+			"name": "language",
+			"value": "XPath"
+		    },{			
+			"name": "version",
+			"value": "1.0"
+		    },{
+			"name": "engine",
+			"value": "https://www.npmjs.com/package/xpath"
+		    }
+		]
+	    },
+	    {
+		"id": "XSD-evaluator",
+		"features": [
+		    {
+			"name": "language",
+			"value": "XML Schema"
+		    },{
+			"name": "version",
+			"value": "1.0"
+		    },{			
+			"name": "engine",
+			"value": "https://www.npmjs.com/package/xsd-schema-validator"
+		    }
+		]
+	    }
+	]
+    }
+}

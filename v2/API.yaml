@@ -1,0 +1,560 @@
+swagger: "2.0"
+info:
+  description: "These are the endpoints API around <b>Juez-LTI</b> project. <br />You can find out more about <b>Juez-LTI</b> at [https://juezlti.eu](https://juezlti.eu)."
+  version: "0.1.0"
+  title: "Juez-LTI"
+  termsOfService: "https://juezlti.eu/privacy-policy/"
+  contact:
+    email: "info@juezlti.eu"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "code.juezlti.eu"
+basePath: "/v1"
+tags:
+- name: "centralRepository"
+  description: "Centralized repository with different question types"
+  externalDocs:
+    description: "Find out more"
+    url: "https://juezlti.eu/central-repository/"
+- name: "authorKitAPI"
+  description: "Access to AuthorKit API"
+  externalDocs:
+    description: "Find out more"
+    url: "https://github.com/FGPE-Erasmus/authorkit-api"
+- name: "validators"
+  description: "System to grade questions"
+  externalDocs:
+    description: "Find out more"
+    url: "https://juezlti.eu/validators/"
+- name: "feedbackSystem"
+  description: "System for the feedback to students"
+  externalDocs:
+    description: "Find out more"
+    url: "https://juezlti.eu/feedback-system/"
+schemes:
+- "https"
+- "http"
+paths:
+  /sets:
+    get:
+      tags:
+      - "centralRepository"
+      summary: "Get sets of questions from central repository to reuse"
+      description: ""
+      operationId: "getSetsFrom2CR"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+    post:
+      tags:
+      - "centralRepository"
+      summary: "Add a new set of questions to central repository"
+      description: ""
+      operationId: "addSet2CR"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Project object that needs to be added to the Central Repository, similar to project in AuthorKit API"
+        required: true
+        schema:
+          $ref: "#/definitions/Project"
+      responses:
+        "405":
+          description: "Invalid input"
+    put:
+      tags:
+      - "centralRepository"
+      summary: "Update an existing set of questions "
+      description: ""
+      operationId: "updateSet2CR"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Project object that needs to be updated to the Central Repository, similar to project in AuthorKit API"
+        required: true
+        schema:
+          $ref: "#/definitions/Project"
+      responses:
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Project not found"
+        "405":
+          description: "Validation exception"
+  /sets/{setId}/questions:
+    get:
+      tags:
+      - "centralRepository"
+      summary: "Get questions of a sets from central repository"
+      description: ""
+      operationId: "getQuestionsSetFromCR"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "setId"
+        in: "path"
+        description: "ID of set of questions to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "405":
+          description: "Invalid input"
+  /sets/{setId}/questions/{questionId}/moveUp:
+    put:
+      tags:
+      - "centralRepository"
+      summary: "Move up question into a set in central repository"
+      description: ""
+      operationId: "moveUpQuestionSetFromCR"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "setId"
+        in: "path"
+        description: "ID of set of questions"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "questionId"
+        in: "path"
+        description: "ID of question to move"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Project"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Set or question not found"
+  /sets/{setId}/questions/{questionId}:
+    delete:
+      tags:
+      - "centralRepository"
+      summary: "Delete a question from a set of central repository"
+      description: ""
+      operationId: "deletQuestionInSetFromCR"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "setId"
+        in: "path"
+        description: "ID of set of questions"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "questionId"
+        in: "path"
+        description: "ID of question to move"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Project"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Set or question not found"
+  /sets/{setId}/import:
+    post:
+      tags:
+      - "centralRepository"
+      summary: "Generate new set importing questions from a set from central repository"
+      description: ""
+      operationId: "importSetFromCR"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "setId"
+        in: "path"
+        description: "ID of set of questions to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Project"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Set not found"
+  /sets/{setId}/questions/import:
+    post:
+      tags:
+      - "centralRepository"
+      summary: "Generate new set importing questions from a set from central repository"
+      description: ""
+      operationId: "importQuestionsSetFromCR"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "setId"
+        in: "path"
+        description: "ID of set of questions to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "questionsId"
+        in: "formData"
+        description: "IDs of questions to import from central repository in a set"
+        required: true
+        type: "array"
+        items:
+          type: "integer"
+          format: "int64"
+        collectionFormat: "multi"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Project"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Set not found"
+  /sets/search:
+    get:
+      tags:
+      - "centralRepository"
+      summary: "Get questions of a sets from central repository"
+      description: ""
+      operationId: "searchSetFromCR"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "query"
+        in: "formData"
+        description: "string to search"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+                $ref: "#/definitions/Project"
+  /projects:
+    post:
+      tags:
+      - "authorKitAPI"
+      summary: "Add a new set of questions to central repository"
+      description: ""
+      operationId: "addProject2AkAPI"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Project object that needs to be added to the Central Repository, similar to prject in AuthorKit API"
+        required: true
+        schema:
+          $ref: "#/definitions/Project"
+      responses:
+        "405":
+          description: "Invalid input"
+  /questions/{questionId}:
+    get:
+      tags:
+      - "authorKitAPI"
+      summary: "Get a question from central repository"
+      description: ""
+      operationId: "getQuestionFromCR"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "questionId"
+        in: "path"
+        description: "ID of question to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Question"
+        "405":
+          description: "Invalid input"
+  /capabilities:
+    get:
+      tags:
+      - "validators"
+      summary: "Get list of capabilities from Validator System"
+      description: ""
+      operationId: "listCapabilities"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+                type: "string"
+  /evaluate/{questionId}:
+    post:
+      tags:
+      - "validators"
+      summary: "Evaluate the student's answer to a question"
+      description: ""
+      operationId: "evaluateQuestions"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "questionId"
+        in: "path"
+        description: "ID of question to evaluate"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "answer"
+        in: "formData"
+        description: "solution send by student"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation. Return Ticket and Report"
+          schema:
+            $ref: "#/definitions/ValidatorResponse"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Question not found"
+  /tickets:
+    post:
+      tags:
+      - "feedbackSystem"
+      summary: "Add a new ticket to Feedback System"
+      description: ""
+      operationId: "addTicket2FS"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Ticket object that needs to be added to the Feedback System"
+        required: true
+        schema:
+          $ref: "#/definitions/Ticket"
+      responses:
+        "405":
+          description: "Invalid input"
+  /reports/{ticketId}/{level}:
+    get:
+      tags:
+      - "feedbackSystem"
+      summary: "Get a question from central repository"
+      description: ""
+      operationId: "getTicketFromFS"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "ticketId"
+        in: "path"
+        description: "ID of ticket to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "level"
+        in: "path"
+        description: "level of the feedback"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Question"
+        "405":
+          description: "Invalid input"
+securityDefinitions:
+  centralRepository_auth:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
+definitions:
+  Project:
+    type: "object"
+    required:
+    - "name"
+    - "is_public"
+    - "owner"
+    - "status"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+        example: "doggie"
+      description:
+        type: "string"
+      owner:
+        $ref: "#/definitions/User"
+      status:
+        type: "string"
+        description: "Set of questions"
+        enum:
+        - "draft"
+        - "announced"
+        - "open"
+        - "closed"
+    xml:
+      name: "Project"
+  Question:
+    type: "object"
+    required:
+    - "title"
+    - "author"
+    - "status"
+    - "platform"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      title:
+        type: "string"
+      module:
+        type: "string"
+      author:
+        $ref: "#/definitions/User"
+      type:
+        type: "string"
+      difficulty:
+        type: "string"
+      status:
+        type: "string"
+        description: "pet status in the store"
+        enum:
+        - "draft"
+        - "announced"
+        - "open"
+        - "closed"
+      keywords:
+        type: "array"
+        items:
+          type: "string"
+      event:
+        type: "string"
+      platform:
+        type: "string"
+      created_at:
+        type: "number"
+      updated_at:
+        type: "number"
+    xml:
+      name: "Project"
+  ValidatorResponse:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+  Ticket:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+  User:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      username:
+        type: "string"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      email:
+        type: "string"
+      password:
+        type: "string"
+      phone:
+        type: "string"
+      userStatus:
+        type: "integer"
+        format: "int32"
+        description: "User Status"
+    xml:
+      name: "User"
+externalDocs:
+  description: "Find out more"
+  url: "https://juezlti.eu/central-repository/"

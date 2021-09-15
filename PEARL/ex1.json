@@ -1,0 +1,10 @@
+{
+    "request": {
+	"date": "2021-06-29T09:00:00",
+	"program": "count(//node())",
+	"learningObject": "http://jueslti.eu/exercise/123"
+    },
+    "reply" : {
+	"token": 123
+    }
+}
