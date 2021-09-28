@@ -13,4 +13,4 @@ You can test these serializations using the REPL of AJV: https://ajv.js.org/
 
 You must declare the specification on the command line, as in this example
 
-    ajv --spec=draft2020 -s PEARL.json -d ex_request_delayed.json
+    ajv  -s PEARL.json -d ./samples/ex_request_delayed.json
