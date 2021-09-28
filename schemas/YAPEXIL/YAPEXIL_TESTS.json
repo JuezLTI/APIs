@@ -1,0 +1,88 @@
+{
+    "$id": "https://juezlti.eu/YAPEXIL_TESTS",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "PERL Request Schema",
+    "description": "A schema for PEARL REPLY ",
+    "type": "array",
+    "items": {
+        "$ref": "/Test"
+    },
+    "definitions": {
+        "test": {
+            "title": "Test",
+            "$id": "/Test",
+            "description": "Test case to validate if the attempt is correct.",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "title": "ID",
+                    "description": "UUID of the test.",
+                    "type": "string"
+                },
+                "input": {
+                    "title": "Input",
+                    "description": "File with input of the test.",
+                    "type": "string"
+                },
+                "output": {
+                    "title": "Output",
+                    "description": "File with expected output of the test.",
+                    "type": "string"
+                },
+                "arguments": {
+                    "title": "Arguments",
+                    "description": "Additional arguments provided to the program when running this test.",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "default": []
+                },
+                "weight": {
+                    "title": "Weight",
+                    "description": "Weight of this test in overall evaluation.",
+                    "type": "number"
+                },
+                "visible": {
+                    "title": "Visible",
+                    "description": "Is this test visible to the user?",
+                    "type": "boolean",
+                    "default": false
+                },
+                "timeout": {
+                    "title": "Timeout",
+                    "description": "Timeout of this test.",
+                    "type": "number",
+                    "default": -1
+                },
+                "feedback": {
+                    "title": "Feedback",
+                    "description": "Feedback messages associated with the test.",
+                    "type": "object",
+                    "properties": {
+                        "message": {
+                            "title": "Message",
+                            "description": "The message.",
+                            "type": "string"
+                        },
+                        "weight": {
+                            "title": "Weight",
+                            "description": "The weight of this message.",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "message",
+                        "weight"
+                    ]
+                }
+            },
+            "required": [
+                "id",
+                "input",
+                "output",
+                "visible"
+            ]
+        }
+    }
+}

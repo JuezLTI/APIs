@@ -1,0 +1,12 @@
+[{
+    "is_deleted": "false",
+    "created_at": "2020-11-15T10:40:04.764Z",
+    "updated_at": "2020-11-15T10:40:06.954Z",
+    "file": {
+        "sha": "b303e70e2753ef3894901561ccc9b43978f2918f"
+    },
+    "pathname": "solution.java",
+    "lang": "java",
+    "id": "4c846e56-d029-426c-a8bb-11e436988ed0",
+    "exercise_id": "d07aa835-8899-4f90-967b-135e6f651222"
+}]

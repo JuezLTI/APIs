@@ -1,0 +1,26 @@
+{
+    "$id": "https://juezlti.eu/PEARL_REPLY",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "PERL Request Schema",
+    "description": "A schema for PEARL REPLY ",
+    "type": "object",
+    "definitions": {
+        "reply": {
+            "$id": "/Reply",
+            "type": "object",
+            "properties": {
+                "capabilities": {
+                    "$ref": "https://juezlti.eu/Common#/definitions/capabilities"
+                },
+                "token": {
+                    "$ref": "https://juezlti.eu/Common#/definitions/token"
+                },
+                "report": {
+                    "$ref": "https://juezlti.eu/Common#/definitions/report"
+                }
+            },
+            "maxProperties": 1
+        }
+    },
+    "$ref": "/Reply"
+}

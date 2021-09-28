@@ -1,0 +1,222 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://github.com/FGPE-Erasmus/format-specifications/blob/master/schemas/yapexil.schema.json",
+    "title": "Yet Another Programming Exercise Interoperability Language",
+    "description": "JSON schema for describing a programming exercise package, based on PExIL - an XML dialect that aims to consolidate all the data required in the programming exercise life-cycle. YAPExIL aims for simplicity while covering most features of a task package as described by Verhoeff's model, i.e., a unit for collecting, storing, archiving, and exchanging all information concerning with a programming task.",
+    "type": "object",
+    "required": [
+        "id",
+        "title",
+        "type",
+        "statements",
+        "solutions",
+        "tests"
+    ],
+    "properties": {
+        "id": {
+            "title": "ID",
+            "description": "UUID of the exercise.",
+            "type": "string"
+        },
+        "title": {
+            "title": "Title",
+            "description": "Title of the exercise.",
+            "type": "string"
+        },
+        "module": {
+            "title": "Module",
+            "description": "Module in which the exercise is in (description of its main topic).",
+            "type": "string"
+        },
+        "author": {
+            "title": "Author",
+            "description": "Author of the exercise.",
+            "type": "string"
+        },
+        "keywords": {
+            "title": "Keywords",
+            "description": "Keywords of the exercise.",
+            "type": "array",
+            "items": {
+                "maxLength": 50,
+                "type": "string"
+            }
+        },
+        "type": {
+            "title": "Type",
+            "description": "The type of programming exercise to be solved.",
+            "type": "string",
+            "enum": [
+                "BLANK_SHEET",
+                "EXTENSION",
+                "IMPROVEMENT",
+                "BUG_FIX",
+                "FILL_IN_GAPS",
+                "SORT_BLOCKS",
+                "SPOT_BUG"
+            ],
+            "default": "BLANK_SHEET"
+        },
+        "event": {
+            "title": "Event",
+            "description": "Event at which the exercise was created (if any).",
+            "type": "string"
+        },
+        "platform": {
+            "title": "Platform",
+            "description": "Platform requirements (if any).",
+            "type": "string"
+        },
+        "difficulty": {
+            "title": "Difficulty",
+            "description": "Difficulty of the exercise.",
+            "type": "string",
+            "enum": [
+                "BEGINNER",
+                "EASY",
+                "AVERAGE",
+                "HARD",
+                "MASTER"
+            ]
+        },
+        "timeout": {
+            "title": "Timeout",
+            "description": "Timeout of the exercise.",
+            "type": "number",
+            "default": -1
+        },
+        "programmingLanguages": {
+            "title": "Programming Languages",
+            "description": "Programming languages in which the code can be written.",
+            "type": "array",
+            "items": {
+                "maxLength": 50,
+                "type": "string"
+            },
+            "default": []
+        },
+        "status": {
+            "title": "Status",
+            "description": "Status of the exercise.",
+            "type": "string",
+            "enum": [
+                "DRAFT",
+                "PUBLISHED",
+                "UNPUBLISHED",
+                "TRASH"
+            ],
+            "default": "DRAFT"
+        },
+        "created_at": {
+            "title": "Creation Date",
+            "description": "Date of creation of the exercise.",
+            "$ref": "https://juezlti.eu/Common#/definitions/dateTime"
+
+        },
+        "updated_at": {
+            "title": "Last Update Date",
+            "description": "Date of the last update to the exercise.",
+            "$ref": "https://juezlti.eu/Common#/definitions/dateTime"
+
+        },
+        "instructions": {
+            "title": "Instructions",
+            "description": "Instructions to teachers about the exercise.",
+            "type": "array",
+            "items": {
+                "$ref": "https://juezlti.eu/Common#/definitions/formattedText"
+            },
+            "default": []
+        },
+        "statements": {
+            "$ref": "https://juezlti.eu/YAPEXIL_STATEMENTS#"
+        },
+        "embeddables": {
+            "title": "Embeddables",
+            "description": "Images, videos, and other files that can be embedded in the statement.",
+            "type": "array",
+            "items": {
+                "$ref": "https://juezlti.eu/YAPEXIL_RESOURCE"
+            },
+            "default": []
+        },
+        "libraries": {
+            "title": "Libraries",
+            "description": "Code libraries that can be used by solutions. It may be used during compilation and/or execution phases.",
+            "type": "array",
+            "items": {
+                "$ref": "https://juezlti.eu/YAPEXIL_RESOURCE"
+            },
+            "default": []
+        },
+        "static_correctors": {
+            "title": "Static Correctors",
+            "description": "External programs that are invoked before dynamic correction to classify/process the program's source code.",
+            "type": "array",
+            "items": {
+                "$ref": "https://juezlti.eu/Common#/definitions/executable"
+            },
+            "default": []
+        },
+        "dynamic_correctors": {
+            "title": "Dynamic Correctors",
+            "description": "External programs that are invoked after the main correction to classify each run.",
+            "type": "array",
+            "items": {
+                "$ref": "https://juezlti.eu/Common#/definitions/executable"
+            },
+            "default": []
+        },
+        "test_generators": {
+            "title": "Test Generators",
+            "description": "External programs that generate the test cases to validate a solution.",
+            "type": "array",
+            "items": {
+                "$ref": "https://juezlti.eu/Common#/definitions/executable"
+            },
+            "default": []
+        },
+        "feedback_generators": {
+            "title": "Feedback Generators",
+            "description": "External programs that generate the feedback to give to the student about his/her attempt to achieve a solution.",
+            "type": "array",
+            "items": {
+                "$ref": "https://juezlti.eu/Common#/definitions/executable"
+            },
+            "default": []
+        },
+        "skeletons": {
+            "title": "Skeletons",
+            "description": "Part of a solution that is provided to the students.",
+            "type": "array",
+            "items": {
+                "$ref": "https://juezlti.eu/Common#/definitions/code"
+            },
+            "default": []
+        },
+        "solutions": {
+            "$ref": "https://juezlti.eu/YAPEXIL_SOLUTIONS#"
+        },
+        "templates": {
+            "title": "Templates",
+            "description": "Part of a solution that wraps students' code without their awareness.",
+            "type": "array",
+            "items": {
+                "$ref": "https://juezlti.eu/Common#/definitions/code"
+            },
+            "default": []
+        },
+        "tests": {
+            "$ref": "https://juezlti.eu/YAPEXIL_TESTS#/"
+        },
+        "testsets": {
+            "title": "Test Sets",
+            "description": "Set(s) of test cases to validate if attempts are correct.",
+            "type": "array",
+            "items": {
+                "$ref": "https://juezlti.eu/YAPEXIL_TEST_SET"
+            },
+            "minItems": 0
+        }
+    }
+}

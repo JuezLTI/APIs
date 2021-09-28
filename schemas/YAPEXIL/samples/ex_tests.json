@@ -1,0 +1,55 @@
+[{
+        "is_deleted": false,
+        "arguments": [],
+        "created_at": "2020-11-15T10:40:18.352Z",
+        "updated_at": "2020-11-15T10:40:22.510Z",
+        "id": "19045e17-c1b7-4618-9caa-fa12a748bc7f",
+        "exercise_id": "d07aa835-8899-4f90-967b-135e6f651222",
+        "testset_id": null,
+        "input": "input2.txt",
+        "output": "output2.txt",
+        "weight": 0,
+        "visible": false,
+        "timeout": -1,
+        "feedback": {
+            "message": "",
+            "weight": ""
+        }
+    },
+    {
+        "is_deleted": false,
+        "arguments": [],
+        "created_at": "2020-11-15T10:40:10.844Z",
+        "updated_at": "2020-11-15T10:40:14.940Z",
+        "id": "a3a3d810-d6d7-4420-a10a-96f3dce22a7a",
+        "exercise_id": "d07aa835-8899-4f90-967b-135e6f651222",
+        "testset_id": null,
+        "input": "input1.txt",
+        "output": "output1.txt",
+        "weight": 0,
+        "visible": false,
+        "timeout": -1,
+        "feedback": {
+            "message": "",
+            "weight": ""
+        }
+    },
+    {
+        "is_deleted": false,
+        "arguments": [],
+        "created_at": "2020-11-15T10:40:41.163Z",
+        "updated_at": "2020-11-15T10:40:45.276Z",
+        "id": "6358121d-7cb5-4048-84e1-22c7901a9c6f",
+        "exercise_id": "d07aa835-8899-4f90-967b-135e6f651222",
+        "testset_id": null,
+        "input": "input3.txt",
+        "output": "output3.txt",
+        "weight": 0,
+        "visible": false,
+        "timeout": -1,
+        "feedback": {
+            "message": "",
+            "weight": ""
+        }
+    }
+]

@@ -1,0 +1,10 @@
+{
+    "$id": "https://juezlti.eu/YAPEXIL_STATEMENTS",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "YAPEXIL Statements Schema",
+    "type": "array",
+    "items": {
+        "$ref": "https://juezlti.eu/Common#/definitions/formattedText"
+    },
+    "minItems": 1
+}

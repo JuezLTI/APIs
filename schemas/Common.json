@@ -1,0 +1,236 @@
+{
+    "$id": "https://juezlti.eu/Common",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "definitions": {
+        "dateTime": {
+            "$id": "/DateTime",
+            "description": "dateTime - similar to the same type in XML Schema",
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}$"
+        },
+        "anyUri": {
+            "$id": "/AnyUri",
+            "description": "AnyURI - similar to the same type in XML Schema",
+            "type": "string",
+            "pattern": "^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?"
+        },
+        "token": {
+            "$id": "Token",
+            "description": "A token to recover a report",
+            "type": "integer"
+        },
+        "nonNegativeInteger": {
+            "$id": "/NonNegativeInteger",
+            "description": "nonNegativeInteger - similar to the same type in XML Schema",
+            "type": "number",
+            "multipleOf": 1,
+            "exclusiveMinimum": 0
+        },
+        "capabilities": {
+            "$id": "Capabilities",
+            "description": "Capabilities of this evaluator",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "features": {
+                        "$ref": "/NameValueList"
+                    }
+                }
+            }
+        },
+        "nameValueList": {
+            "$id": "NameValueList",
+            "description": "List of name-value pairs",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "value": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name",
+                    "value"
+                ]
+            }
+        },
+        "report": {
+            "$id": "Report",
+            "description": "Evaluation report",
+            "type": "object",
+            "properties": {
+                "capability": {
+                    "type": "string"
+                },
+                "programmingLanguage": {
+                    "type": "string"
+                },
+                "exercise": {
+                    "type": "string"
+                },
+                "compilationErrors": {
+                    "type": "string"
+                },
+                "tests": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "/Test"
+                    }
+                }
+            },
+            "required": [
+                "capability",
+                "exercise"
+            ],
+            "additionalProperties": false
+        },
+        "test": {
+            "$id": "Test",
+            "description": "report on a single test",
+            "type": "object",
+            "properties": {
+                "mode": {
+                    "type": "string",
+                    "enum": [
+                        "file",
+                        "group",
+                        "description",
+                        "generator",
+                        "program"
+                    ]
+                },
+                "input": {
+                    "type": "string"
+                },
+                "expectedOutput": {
+                    "type": "string"
+                },
+                "obtainedOutput": {
+                    "type": "string"
+                },
+                "outputDifferences": {
+                    "$ref": "/OutputDiferences"
+                },
+                "classify": {
+                    "type": "string"
+                },
+                "mark": {
+                    "$ref": "/Mark"
+                },
+                "feedback": {
+                    "type": "string"
+                },
+                "environmentValues": {
+                    "$ref": "/NameValueList"
+                }
+            },
+            "required": [
+                "input",
+                "expectedOutput",
+                "obtainedOutput",
+                "outputDifferences",
+                "classify",
+                "mark",
+                "feedback",
+                "environmentValues"
+            ],
+            "additionalProperties": false
+        },
+        "mark": {
+            "$id": "Mark",
+            "description": "mark of test",
+            "type": "string"
+        },
+        "outputDifferences": {
+            "$id": "OutputDiferences",
+            "description": "diferences in output/side effects",
+            "type": "string"
+        },
+        "formattedText": {
+            "title": "FormattedText",
+            "$id": "FormattedText",
+            "description": "An external file with formatted text.",
+            "type": "object",
+            "properties": {
+                "pathname": {
+                    "title": "Pathname",
+                    "description": "Path to file in the archive.",
+                    "type": "string"
+                },
+                "format": {
+                    "title": "Format",
+                    "description": "Format used in this file.",
+                    "enum": [
+                        "PDF",
+                        "MARKDOWN",
+                        "HTML",
+                        "TXT"
+                    ],
+                    "type": "string"
+                },
+                "nat_lang": {
+                    "title": "Natural Language",
+                    "description": "Natural language in which the text is written.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "pathname",
+                "format",
+                "nat_lang"
+            ]
+        },
+        "executable": {
+            "title": "Executable",
+            "$id": "Executable",
+            "description": "An external file that is an executable program.",
+            "type": "object",
+            "properties": {
+                "pathname": {
+                    "title": "Pathname",
+                    "description": "Path to file in the archive.",
+                    "type": "string"
+                },
+                "command_line": {
+                    "title": "Command Line",
+                    "description": "The command line to run this executable.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "pathname",
+                "command_line"
+            ]
+        },
+        "code": {
+            "title": "Code",
+            "$id": "Code",
+            "description": "An external file that contains code in a certain programming language",
+            "type": "object",
+            "properties": {
+                "pathname": {
+                    "title": "Pathname",
+                    "description": "Path to file in the archive.",
+                    "type": "string"
+                },
+                "lang": {
+                    "title": "Programming Language",
+                    "description": "Programming language in which the code is written.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "pathname",
+                "lang"
+            ]
+        }
+    }
+}

@@ -1,0 +1,45 @@
+{
+    "$id": "https://juezlti.eu/YAPEXIL_TEST_SET",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "PERL Request Schema",
+    "description": "A schema for PEARL REPLY ",
+    "type": "object",
+    "properties": {
+        "id": {
+            "title": "ID",
+            "description": "UUID of the test set.",
+            "type": "string"
+        },
+        "tests": {
+            "title": "Tests",
+            "description": "Set of test cases.",
+            "type": "array",
+            "items": {
+                "$ref": "https://juezlti.eu/YAPEXIL_TESTS#/definitions/test"
+            },
+            "minItems": 1
+        },
+        "name": {
+            "title": "Name",
+            "description": "Name of the test set.",
+            "type": "string"
+        },
+        "weight": {
+            "title": "Weight",
+            "description": "Weight of the test set in overall evaluation.",
+            "type": "number"
+        },
+        "visible": {
+            "title": "Visible",
+            "description": "Is this test set visible to the user?",
+            "type": "boolean",
+            "default": false
+        }
+    },
+    "required": [
+        "id",
+        "name",
+        "tests",
+        "visible"
+    ]
+}
