@@ -4,30 +4,21 @@
     "title": "PERL Schema",
     "description": "A schema for PEARL - the Programming Exercise Assessment Reporting Language ",
     "type": "object",
-    "definitions": {
-        "message": {
-            "$id": "/Message",
-            "description": "Top level element representing a message from our evaluation service to the client",
-            "$comment": "(ERL:) We send both the request and the reply to the client so a simple client only needs to show the data in a more friendly way.(???)",
-            "type": "object",
-            "properties": {
-                "id": {
-                    "$ref": "https://juezlti.eu/Common#/definitions/nonNegativeInteger"
-                },
-                "date": {
-                    "$ref": "https://juezlti.eu/Common#/definitions/dateTime"
-                },
-                "request": {
-                    "$ref": "https://juezlti.eu/PEARL_REQUEST#/definitions/request"
-                },
-                "reply": {
-                    "$ref": "https://juezlti.eu/PEARL_REPLY#/definitions/reply"
-                }
-            },
-            "required": [
-                "request"
-            ]
+    "properties": {
+        "id": {
+            "$ref": "https://juezlti.eu/Common#/definitions/nonNegativeInteger"
+        },
+        "date": {
+            "$ref": "https://juezlti.eu/Common#/definitions/dateTime"
+        },
+        "request": {
+            "$ref": "https://juezlti.eu/PEARL_REQUEST#/"
+        },
+        "reply": {
+            "$ref": "https://juezlti.eu/PEARL_REPLY#/"
         }
     },
-    "$ref": "/Message"
+    "required": [
+        "request"
+    ]
 }

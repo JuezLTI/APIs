@@ -4,43 +4,36 @@
     "title": "PERL Request Schema",
     "description": "A schema for PEARL REQUEST ",
     "type": "object",
-    "definitions": {
-        "request": {
-            "$id": "/Request",
-            "description": "Information about the client that doesn't influence the evaluation.",
-            "type": "object",
-            "allOf": [{
+    "allOf": [{
+            "properties": {
+                "date": {
+                    "$ref": "https://juezlti.eu/Common#/definitions/dateTime"
+                }
+            }
+        },
+        {
+            "anyOf": [{
                     "properties": {
-                        "date": {
-                            "$ref": "https://juezlti.eu/Common#/definitions/dateTime"
+                        "program": {
+                            "type": "string"
+                        },
+                        "learningObject": {
+                            "$ref": "https://juezlti.eu/Common#/definitions/anyUri"
                         }
-                    }
+                    },
+                    "required": [
+                        "program",
+                        "learningObject"
+                    ]
                 },
                 {
-                    "anyOf": [{
-                            "properties": {
-                                "program": {
-                                    "type": "string"
-                                },
-                                "learningObject": {
-                                    "$ref": "https://juezlti.eu/Common#/definitions/anyUri"
-                                }
-                            },
-                            "required": [
-                                "program",
-                                "learningObject"
-                            ]
-                        },
-                        {
-                            "properties": {
-                                "token": {
-                                    "$ref": "https://juezlti.eu/Common#/definitions/token"
-                                }
-                            }
+                    "properties": {
+                        "token": {
+                            "$ref": "https://juezlti.eu/Common#/definitions/token"
                         }
-                    ]
+                    }
                 }
             ]
         }
-    }
+    ]
 }

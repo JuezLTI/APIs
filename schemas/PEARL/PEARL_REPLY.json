@@ -4,23 +4,16 @@
     "title": "PERL Request Schema",
     "description": "A schema for PEARL REPLY ",
     "type": "object",
-    "definitions": {
-        "reply": {
-            "$id": "/Reply",
-            "type": "object",
-            "properties": {
-                "capabilities": {
-                    "$ref": "https://juezlti.eu/Common#/definitions/capabilities"
-                },
-                "token": {
-                    "$ref": "https://juezlti.eu/Common#/definitions/token"
-                },
-                "report": {
-                    "$ref": "https://juezlti.eu/Common#/definitions/report"
-                }
-            },
-            "maxProperties": 1
+    "properties": {
+        "capabilities": {
+            "$ref": "https://juezlti.eu/Common#/definitions/capabilities"
+        },
+        "token": {
+            "$ref": "https://juezlti.eu/Common#/definitions/token"
+        },
+        "report": {
+            "$ref": "https://juezlti.eu/Common#/definitions/report"
         }
     },
-    "$ref": "/Reply"
+    "maxProperties": 1
 }
