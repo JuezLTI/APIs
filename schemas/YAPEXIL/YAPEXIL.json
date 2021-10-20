@@ -7,7 +7,11 @@
     "required": [
         "id",
         "title",
+        "author",
+        "keywords",
+        "status",
         "type",
+        "created_at",
         "statements",
         "solutions",
         "tests"
@@ -16,7 +20,8 @@
         "id": {
             "title": "ID",
             "description": "UUID of the exercise.",
-            "type": "string"
+            "type": "string",
+            "format": "uuid"
         },
         "title": {
             "title": "Title",
@@ -110,33 +115,39 @@
         "created_at": {
             "title": "Creation Date",
             "description": "Date of creation of the exercise.",
-            "$ref": "https://juezlti.eu/Common#/definitions/dateTime"
-
+            "type": "string",
+            "format": "date-time"
         },
         "updated_at": {
             "title": "Last Update Date",
             "description": "Date of the last update to the exercise.",
-            "$ref": "https://juezlti.eu/Common#/definitions/dateTime"
-
+            "type": "string",
+            "format": "date-time"
         },
         "instructions": {
             "title": "Instructions",
             "description": "Instructions to teachers about the exercise.",
             "type": "array",
             "items": {
-                "$ref": "https://juezlti.eu/Common#/definitions/formattedText"
+                "$ref": "#/definitions/FormattedText"
             },
             "default": []
         },
         "statements": {
-            "$ref": "https://juezlti.eu/YAPEXIL_STATEMENTS#"
+            "title": "Statements",
+            "description": "The statement of the exercise to present to the student in the various languages.",
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/FormattedText"
+            },
+            "minItems": 1
         },
         "embeddables": {
             "title": "Embeddables",
             "description": "Images, videos, and other files that can be embedded in the statement.",
             "type": "array",
             "items": {
-                "$ref": "https://juezlti.eu/YAPEXIL_RESOURCE"
+                "$ref": "#/definitions/Resource"
             },
             "default": []
         },
@@ -145,7 +156,7 @@
             "description": "Code libraries that can be used by solutions. It may be used during compilation and/or execution phases.",
             "type": "array",
             "items": {
-                "$ref": "https://juezlti.eu/YAPEXIL_RESOURCE"
+                "$ref": "#/definitions/Resource"
             },
             "default": []
         },
@@ -154,7 +165,7 @@
             "description": "External programs that are invoked before dynamic correction to classify/process the program's source code.",
             "type": "array",
             "items": {
-                "$ref": "https://juezlti.eu/Common#/definitions/executable"
+                "$ref": "#/definitions/Executable"
             },
             "default": []
         },
@@ -163,7 +174,7 @@
             "description": "External programs that are invoked after the main correction to classify each run.",
             "type": "array",
             "items": {
-                "$ref": "https://juezlti.eu/Common#/definitions/executable"
+                "$ref": "#/definitions/Executable"
             },
             "default": []
         },
@@ -172,7 +183,7 @@
             "description": "External programs that generate the test cases to validate a solution.",
             "type": "array",
             "items": {
-                "$ref": "https://juezlti.eu/Common#/definitions/executable"
+                "$ref": "#/definitions/Executable"
             },
             "default": []
         },
@@ -181,7 +192,7 @@
             "description": "External programs that generate the feedback to give to the student about his/her attempt to achieve a solution.",
             "type": "array",
             "items": {
-                "$ref": "https://juezlti.eu/Common#/definitions/executable"
+                "$ref": "#/definitions/Executable"
             },
             "default": []
         },
@@ -190,33 +201,268 @@
             "description": "Part of a solution that is provided to the students.",
             "type": "array",
             "items": {
-                "$ref": "https://juezlti.eu/Common#/definitions/code"
+                "$ref": "#/definitions/Code"
             },
             "default": []
         },
         "solutions": {
-            "$ref": "https://juezlti.eu/YAPEXIL_SOLUTIONS#"
+            "title": "Solutions",
+            "description": "Solutions provided by the author(s) of the exercise.",
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Code"
+            },
+            "default": []
         },
         "templates": {
             "title": "Templates",
             "description": "Part of a solution that wraps students' code without their awareness.",
             "type": "array",
             "items": {
-                "$ref": "https://juezlti.eu/Common#/definitions/code"
+                "$ref": "#/definitions/Code"
             },
             "default": []
         },
         "tests": {
-            "$ref": "https://juezlti.eu/YAPEXIL_TESTS#/"
+            "title": "Tests",
+            "description": "Test cases to validate if attempts are correct.",
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Test"
+            },
+            "minItems": 0
         },
         "testsets": {
             "title": "Test Sets",
             "description": "Set(s) of test cases to validate if attempts are correct.",
             "type": "array",
             "items": {
-                "$ref": "https://juezlti.eu/YAPEXIL_TEST_SET"
+                "$ref": "#/definitions/TestSet"
             },
             "minItems": 0
+        }
+    },
+    "definitions": {
+        "Test": {
+            "title": "Test",
+            "description": "Test case to validate if the attempt is correct.",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "title": "ID",
+                    "description": "ID of the test.",
+                    "type": "string",
+                    "format": "uuid"
+                },
+                "name": {
+                    "title": "Name",
+                    "description": "Name of the test (e.g., T002).",
+                    "type": "string"
+                },
+                "input": {
+                    "title": "Input",
+                    "description": "File with input of the test.",
+                    "type": "string"
+                },
+                "output": {
+                    "title": "Output",
+                    "description": "File with expected output of the test.",
+                    "type": "string"
+                },
+                "arguments": {
+                    "title": "Arguments",
+                    "description": "Additional arguments provided to the program when running this test.",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "default": []
+                },
+                "weight": {
+                    "title": "Weight",
+                    "description": "Weight of this test in overall evaluation.",
+                    "type": "number"
+                },
+                "visible": {
+                    "title": "Visible",
+                    "description": "Is this test visible to the user?",
+                    "type": "boolean",
+                    "default": false
+                },
+                "timeout": {
+                    "title": "Timeout",
+                    "description": "Timeout of this test.",
+                    "type": "number",
+                    "default": -1
+                },
+                "feedback": {
+                    "title": "Feedback",
+                    "description": "Feedback messages associated with the test.",
+                    "type": "object",
+                    "properties": {
+                        "message": {
+                            "title": "Message",
+                            "description": "The message.",
+                            "type": "string"
+                        },
+                        "weight": {
+                            "title": "Weight",
+                            "description": "The weight of this message.",
+                            "type": "number"
+                        }
+                    },
+                    "required": [
+                        "message"
+                    ]
+                }
+            },
+            "required": [
+                "input",
+                "output",
+                "visible"
+            ]
+        },
+        "TestSet": {
+            "title": "Test Set",
+            "description": "A set of test cases to validate if the attempt is correct.",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "title": "ID",
+                    "description": "ID of the test set.",
+                    "type": "string",
+                    "format": "uuid"
+                },
+                "name": {
+                    "title": "Name",
+                    "description": "Name of the test set.",
+                    "type": "string"
+                },
+                "tests": {
+                    "title": "Tests",
+                    "description": "Set of test cases.",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Test"
+                    },
+                    "minItems": 1
+                },
+                "weight": {
+                    "title": "Weight",
+                    "description": "Weight of the test set in overall evaluation.",
+                    "type": "number"
+                },
+                "visible": {
+                    "title": "Visible",
+                    "description": "Is this test set visible to the user?",
+                    "type": "boolean",
+                    "default": false
+                }
+            },
+            "required": [
+                "tests",
+                "visible"
+            ]
+        },
+        "FormattedText": {
+            "title": "FormattedText",
+            "description": "An external file with formatted text.",
+            "type": "object",
+            "properties": {
+                "pathname": {
+                    "title": "Pathname",
+                    "description": "Path to file in the archive.",
+                    "type": "string"
+                },
+                "format": {
+                    "title": "Format",
+                    "description": "Format used in this file.",
+                    "enum": [
+                        "PDF",
+                        "MARKDOWN",
+                        "HTML",
+                        "TXT"
+                    ],
+                    "type": "string"
+                },
+                "nat_lang": {
+                    "title": "Natural Language",
+                    "description": "Natural language in which the text is written.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "pathname",
+                "format",
+                "nat_lang"
+            ]
+        },
+        "Resource": {
+            "title": "Resource",
+            "description": "An external file used in the exercise.",
+            "type": "object",
+            "properties": {
+                "pathname": {
+                    "title": "Pathname",
+                    "description": "Path to file in the archive.",
+                    "type": "string"
+                },
+                "type": {
+                    "title": "Type",
+                    "description": "Type of resource.",
+                    "enum": [
+                        "EMBEDDABLE",
+                        "LIBRARY"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "pathname",
+                "type"
+            ]
+        },
+        "Executable": {
+            "title": "Executable",
+            "description": "An external file that is an executable program.",
+            "type": "object",
+            "properties": {
+                "pathname": {
+                    "title": "Pathname",
+                    "description": "Path to file in the archive.",
+                    "type": "string"
+                },
+                "command_line": {
+                    "title": "Command Line",
+                    "description": "The command line to run this executable.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "pathname",
+                "command_line"
+            ]
+        },
+        "Code": {
+            "title": "Code",
+            "description": "An external file that contains code in a certain programming language",
+            "type": "object",
+            "properties": {
+                "pathname": {
+                    "title": "Pathname",
+                    "description": "Path to file in the archive.",
+                    "type": "string"
+                },
+                "lang": {
+                    "title": "Programming Language",
+                    "description": "Programming language in which the code is written.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "pathname",
+                "lang"
+            ]
         }
     }
 }

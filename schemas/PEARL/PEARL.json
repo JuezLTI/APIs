@@ -4,21 +4,236 @@
     "title": "PERL Schema",
     "description": "A schema for PEARL - the Programming Exercise Assessment Reporting Language ",
     "type": "object",
-    "properties": {
-        "id": {
-            "$ref": "https://juezlti.eu/Common#/definitions/nonNegativeInteger"
-        },
-        "date": {
-            "$ref": "https://juezlti.eu/Common#/definitions/dateTime"
+    "definitions": {
+        "message": {
+            "$id": "/Message",
+            "description": "Top level element representing a message from our evaluation service to the client",
+            "$comment": "(ERL:) We send both the request and the reply to the client so a simple client only needs to show the data in a more friendly way.(???)",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "format": "uuid"
+                },
+                "date": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "request": {
+                    "$ref": "/Request"
+                },
+                "reply": {
+                    "$ref": "/Reply"
+                }
+            },
+            "required": [
+                "request"
+            ]
         },
         "request": {
-            "$ref": "https://juezlti.eu/PEARL_REQUEST#/"
+            "$id": "/Request",
+            "description": "Information about the client that doesn't influence the evaluation.",
+            "type": "object",
+            "allOf": [{
+                    "properties": {
+                        "date": {
+                            "type": "string",
+                            "format": "date-time"
+                        }
+                    }
+                },
+                {
+                    "anyOf": [{
+                            "properties": {
+                                "program": {
+                                    "type": "string"
+                                },
+                                "learningObject": {
+                                    "type": "string",
+                                    "format": "uri"
+                                }
+                            },
+                            "required": [
+                                "program",
+                                "learningObject"
+                            ]
+                        },
+                        {
+                            "properties": {
+                                "token": {
+                                    "$ref": "/Token"
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
         },
         "reply": {
-            "$ref": "https://juezlti.eu/PEARL_REPLY#/"
+            "$id": "/Reply",
+            "type": "object",
+            "properties": {
+                "capabilities": {
+                    "$ref": "/Capabilities"
+                },
+                "token": {
+                    "$ref": "/Token"
+                },
+                "report": {
+                    "$ref": "/Report"
+                }
+            },
+            "maxProperties": 1
+        },
+        "capabilities": {
+            "$id": "Capabilities",
+            "description": "Capabilities of this evaluator",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "features": {
+                        "$ref": "/NameValueList"
+                    }
+                }
+            }
+        },
+        "token": {
+            "$id": "Token",
+            "description": "A token to recover a report",
+            "type": "integer"
+        },
+        "report": {
+            "$id": "Report",
+            "description": "Evaluation report",
+            "type": "object",
+            "properties": {
+                "capability": {
+                    "type": "string"
+                },
+                "programmingLanguage": {
+                    "type": "string"
+                },
+                "exercise": {
+                    "type": "string"
+                },
+                "compilationErrors": {
+                    "type": "string"
+                },
+                "tests": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "/Test"
+                    }
+                }
+            },
+            "required": [
+                "capability",
+                "exercise"
+            ],
+            "additionalProperties": false
+        },
+        "test": {
+            "$id": "Test",
+            "description": "report on a single test",
+            "type": "object",
+            "properties": {
+                "mode": {
+                    "type": "string",
+                    "enum": [
+                        "file",
+                        "group",
+                        "description",
+                        "generator",
+                        "program"
+                    ]
+                },
+                "input": {
+                    "type": "string"
+                },
+                "expectedOutput": {
+                    "type": "string"
+                },
+                "obtainedOutput": {
+                    "type": "string"
+                },
+                "outputDifferences": {
+                    "$ref": "/OutputDiferences"
+                },
+                "classify": {
+                    "type": "string"
+                },
+                "mark": {
+                    "$ref": "/Mark"
+                },
+                "feedback": {
+                    "type": "string"
+                },
+                "environmentValues": {
+                    "$ref": "/NameValueList"
+                }
+            },
+            "required": [
+                "input",
+                "expectedOutput",
+                "obtainedOutput",
+                "outputDifferences",
+                "classify",
+                "mark",
+                "feedback",
+                "environmentValues"
+            ],
+            "additionalProperties": false
+        },
+        "outputDifferences": {
+            "$id": "OutputDiferences",
+            "description": "diferences in output/side effects"
+        },
+        "mark": {
+            "$id": "Mark",
+            "description": "mark of test"
+        },
+        "nameValueList": {
+            "$id": "NameValueList",
+            "description": "List of name-value pairs",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "value": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name",
+                    "value"
+                ]
+            }
+        },
+        "summary": {
+            "$id": "Summary",
+            "description": "Evaluation summary",
+            "properties": {
+                "classify": {
+                    "type": "string"
+                },
+                "feedback": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "environmentValues": {
+                    "$ref": "/EnvironmentValues"
+                }
+            }
         }
     },
-    "required": [
-        "request"
-    ]
+    "$ref": "/Message"
 }
