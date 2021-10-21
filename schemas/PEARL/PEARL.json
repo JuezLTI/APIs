@@ -50,7 +50,7 @@
                                 },
                                 "learningObject": {
                                     "type": "string",
-                                    "format": "uri"
+                                    "format": "uuid"
                                 }
                             },
                             "required": [
@@ -112,7 +112,17 @@
             "type": "object",
             "properties": {
                 "capability": {
-                    "type": "string"
+                    "$id": "Capability",
+                    "description": "Capability report",
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "features": {
+                            "$ref": "/NameValueList"
+                        }
+                    }
                 },
                 "programmingLanguage": {
                     "type": "string"
