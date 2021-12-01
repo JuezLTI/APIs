@@ -1,5 +1,5 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$schema": "http://json-schema.org/draft-07/schema",
     "$id": "https://github.com/FGPE-Erasmus/format-specifications/blob/master/schemas/yapexil.schema.json",
     "title": "Yet Another Programming Exercise Interoperability Language",
     "description": "JSON schema for describing a programming exercise package, based on PExIL - an XML dialect that aims to consolidate all the data required in the programming exercise life-cycle. YAPExIL aims for simplicity while covering most features of a task package as described by Verhoeff's model, i.e., a unit for collecting, storing, archiving, and exchanging all information concerning with a programming task.",
