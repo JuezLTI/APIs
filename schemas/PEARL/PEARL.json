@@ -131,7 +131,10 @@
                     "type": "string"
                 },
                 "compilationErrors": {
-                    "type": "string"
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 },
                 "tests": {
                     "type": "array",
