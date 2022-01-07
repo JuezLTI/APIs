@@ -13,7 +13,7 @@ host: "code.juezlti.eu"
 basePath: "/v1"
 tags:
 - name: "centralRepository"
-  description: "Centralized repository with different question types"
+  description: "Centralized repository with different exercise types"
   externalDocs:
     description: "Find out more"
     url: "https://juezlti.eu/central-repository/"
@@ -23,7 +23,7 @@ tags:
     description: "Find out more"
     url: "https://github.com/FGPE-Erasmus/authorkit-api"
 - name: "validators"
-  description: "System to grade questions"
+  description: "System to grade exercises"
   externalDocs:
     description: "Find out more"
     url: "https://juezlti.eu/validators/"
@@ -40,7 +40,7 @@ paths:
     get:
       tags:
       - "centralRepository"
-      summary: "Get sets of questions from central repository to reuse"
+      summary: "Get sets of exercises from central repository to reuse"
       description: ""
       operationId: "getSetsFrom2CR"
       consumes:
@@ -55,7 +55,7 @@ paths:
     post:
       tags:
       - "centralRepository"
-      summary: "Add a new set of questions to central repository"
+      summary: "Add a new set of exercises to central repository"
       description: ""
       operationId: "addSet2CR"
       consumes:
@@ -77,7 +77,7 @@ paths:
     put:
       tags:
       - "centralRepository"
-      summary: "Update an existing set of questions "
+      summary: "Update an existing set of exercises "
       description: ""
       operationId: "updateSet2CR"
       consumes:
@@ -100,13 +100,13 @@ paths:
           description: "Project not found"
         "405":
           description: "Validation exception"
-  /sets/{setId}/questions:
+  /sets/{setId}/exercises:
     get:
       tags:
       - "centralRepository"
-      summary: "Get questions of a sets from central repository"
+      summary: "Get exercises of a sets from central repository"
       description: ""
-      operationId: "getQuestionsSetFromCR"
+      operationId: "getExercisesSetFromCR"
       consumes:
       - "application/json"
       - "application/xml"
@@ -116,20 +116,20 @@ paths:
       parameters:
       - name: "setId"
         in: "path"
-        description: "ID of set of questions to return"
+        description: "ID of set of exercises to return"
         required: true
         type: "integer"
         format: "int64"
       responses:
         "405":
           description: "Invalid input"
-  /sets/{setId}/questions/{questionId}/moveUp:
+  /sets/{setId}/exercises/{exerciseId}/moveUp:
     put:
       tags:
       - "centralRepository"
-      summary: "Move up question into a set in central repository"
+      summary: "Move up exercise into a set in central repository"
       description: ""
-      operationId: "moveUpQuestionSetFromCR"
+      operationId: "moveUpExerciseSetFromCR"
       consumes:
       - "application/json"
       - "application/xml"
@@ -139,13 +139,13 @@ paths:
       parameters:
       - name: "setId"
         in: "path"
-        description: "ID of set of questions"
+        description: "ID of set of exercises"
         required: true
         type: "integer"
         format: "int64"
-      - name: "questionId"
+      - name: "exerciseId"
         in: "path"
-        description: "ID of question to move"
+        description: "ID of exercise to move"
         required: true
         type: "integer"
         format: "int64"
@@ -157,14 +157,14 @@ paths:
         "400":
           description: "Invalid ID supplied"
         "404":
-          description: "Set or question not found"
-  /sets/{setId}/questions/{questionId}:
+          description: "Set or exercise not found"
+  /sets/{setId}/exercises/{exerciseId}:
     delete:
       tags:
       - "centralRepository"
-      summary: "Delete a question from a set of central repository"
+      summary: "Delete a exercise from a set of central repository"
       description: ""
-      operationId: "deletQuestionInSetFromCR"
+      operationId: "deletExerciseInSetFromCR"
       consumes:
       - "application/json"
       - "application/xml"
@@ -174,13 +174,13 @@ paths:
       parameters:
       - name: "setId"
         in: "path"
-        description: "ID of set of questions"
+        description: "ID of set of exercises"
         required: true
         type: "integer"
         format: "int64"
-      - name: "questionId"
+      - name: "exerciseId"
         in: "path"
-        description: "ID of question to move"
+        description: "ID of exercise to move"
         required: true
         type: "integer"
         format: "int64"
@@ -192,12 +192,12 @@ paths:
         "400":
           description: "Invalid ID supplied"
         "404":
-          description: "Set or question not found"
+          description: "Set or exercise not found"
   /sets/{setId}/import:
     post:
       tags:
       - "centralRepository"
-      summary: "Generate new set importing questions from a set from central repository"
+      summary: "Generate new set importing exercises from a set from central repository"
       description: ""
       operationId: "importSetFromCR"
       consumes:
@@ -209,7 +209,7 @@ paths:
       parameters:
       - name: "setId"
         in: "path"
-        description: "ID of set of questions to return"
+        description: "ID of set of exercises to return"
         required: true
         type: "integer"
         format: "int64"
@@ -222,13 +222,13 @@ paths:
           description: "Invalid ID supplied"
         "404":
           description: "Set not found"
-  /sets/{setId}/questions:
+  /sets/{setId}/exercises:
     post:
       tags:
       - "centralRepository"
-      summary: "Adding a question to a set of questions"
+      summary: "Adding a exercise to a set of exercises"
       description: ""
-      operationId: "addQuestion2Set"
+      operationId: "addExercise2Set"
       consumes:
       - "application/x-www-form-urlencoded"
       produces:
@@ -237,32 +237,32 @@ paths:
       parameters:
       - name: "setId"
         in: "path"
-        description: "ID of set of questions to return"
+        description: "ID of set of exercises to return"
         required: true
         type: "integer"
         format: "int64"
       - name: "body"
         in: "body"
-        description: "question sent by codetest to be stored into Central Repository"
+        description: "exercise sent by codetest to be stored into Central Repository"
         required: true
         schema:
-          $ref: "#/definitions/Question"
+          $ref: "#/definitions/Exercise"
       responses:
         "200":
-          description: "successful operation. Return questions"
+          description: "successful operation. Return exercises"
           schema:
-            $ref: "#/definitions/Question"
+            $ref: "#/definitions/Exercise"
         "400":
           description: "Invalid setId supplied"
         "404":
           description: "Set not found"
-  /sets/{setId}/questions/{questionId}:
+  /sets/{setId}/exercises/{exerciseId}:
     put:
       tags:
       - "centralRepository"
-      summary: "Update a question related to a set of questions"
+      summary: "Update a exercise related to a set of exercises"
       description: ""
-      operationId: "updateQuestion2Set"
+      operationId: "updateExercise2Set"
       consumes:
       - "application/x-www-form-urlencoded"
       produces:
@@ -271,38 +271,38 @@ paths:
       parameters:
       - name: "setId"
         in: "path"
-        description: "ID of set of questions"
+        description: "ID of set of exercises"
         required: true
         type: "integer"
         format: "int64"
-      - name: "questionId"
+      - name: "exerciseId"
         in: "path"
-        description: "ID of question to be updated"
+        description: "ID of exercise to be updated"
         required: true
         type: "integer"
         format: "int64"
       - name: "body"
         in: "body"
-        description: "question sent by codetest to be updated into Central Repository"
+        description: "exercise sent by codetest to be updated into Central Repository"
         required: true
         schema:
-          $ref: "#/definitions/Question"
+          $ref: "#/definitions/Exercise"
       responses:
         "200":
-          description: "successful operation. Return questions"
+          description: "successful operation. Return exercises"
           schema:
-            $ref: "#/definitions/Question"
+            $ref: "#/definitions/Exercise"
         "400":
           description: "Invalid ID supplied"
         "404":
-          description: "Set or question not found"
-  /sets/{setId}/questions/import:
+          description: "Set or exercise not found"
+  /sets/{setId}/exercises/import:
     post:
       tags:
       - "centralRepository"
-      summary: "Generate new set importing questions from a set from central repository"
+      summary: "Generate new set importing exercises from a set from central repository"
       description: ""
-      operationId: "importQuestionsSetFromCR"
+      operationId: "importExercisesSetFromCR"
       consumes:
       - "application/x-www-form-urlencoded"
       produces:
@@ -311,13 +311,13 @@ paths:
       parameters:
       - name: "setId"
         in: "path"
-        description: "ID of set of questions to return"
+        description: "ID of set of exercises to return"
         required: true
         type: "integer"
         format: "int64"
-      - name: "questionsId"
+      - name: "exercisesId"
         in: "formData"
-        description: "IDs of questions to import from central repository in a set"
+        description: "IDs of exercises to import from central repository in a set"
         required: true
         type: "array"
         items:
@@ -337,7 +337,7 @@ paths:
     get:
       tags:
       - "centralRepository"
-      summary: "Get questions of a sets from central repository"
+      summary: "Get exercises of a sets from central repository"
       description: ""
       operationId: "searchSetFromCR"
       consumes:
@@ -362,7 +362,7 @@ paths:
     post:
       tags:
       - "authorKitAPI"
-      summary: "Add a new set of questions to central repository"
+      summary: "Add a new set of exercises to central repository"
       description: ""
       operationId: "addProject2AkAPI"
       consumes:
@@ -381,13 +381,13 @@ paths:
       responses:
         "405":
           description: "Invalid input"
-  /questions/{questionId}:
+  /exercises/{exerciseId}:
     get:
       tags:
       - "authorKitAPI"
-      summary: "Get a question from central repository"
+      summary: "Get a exercise from central repository"
       description: ""
-      operationId: "getQuestionFromCR"
+      operationId: "getExerciseFromCR"
       consumes:
       - "application/json"
       - "application/xml"
@@ -395,9 +395,9 @@ paths:
       - "application/xml"
       - "application/json"
       parameters:
-      - name: "questionId"
+      - name: "exerciseId"
         in: "path"
-        description: "ID of question to return"
+        description: "ID of exercise to return"
         required: true
         type: "integer"
         format: "int64"
@@ -405,7 +405,7 @@ paths:
         "200":
           description: "successful operation"
           schema:
-            $ref: "#/definitions/Question"
+            $ref: "#/definitions/Exercise"
         "405":
           description: "Invalid input"
   /capabilities:
@@ -428,22 +428,22 @@ paths:
             type: "array"
             items:
                 type: "string"
-  /evaluate/{questionId}:
+  /evaluate/{exerciseId}:
     post:
       tags:
       - "validators"
-      summary: "Evaluate the student's answer to a question"
+      summary: "Evaluate the student's answer to a exercise"
       description: ""
-      operationId: "evaluateQuestions"
+      operationId: "evaluateExercises"
       consumes:
       - "application/x-www-form-urlencoded"
       produces:
       - "application/xml"
       - "application/json"
       parameters:
-      - name: "questionId"
+      - name: "exerciseId"
         in: "path"
-        description: "ID of question to evaluate"
+        description: "ID of exercise to evaluate"
         required: true
         type: "integer"
         format: "int64"
@@ -460,35 +460,35 @@ paths:
         "400":
           description: "Invalid ID supplied"
         "404":
-          description: "Question not found"
-  /questions/{questionId}/getOutput:
+          description: "Exercise not found"
+  /exercises/{exerciseId}/getOutput:
     put:
       tags:
       - "validators"
-      summary: "Get outputs related to the question's inputs"
+      summary: "Get outputs related to the exercise's inputs"
       description: ""
-      operationId: "getOutputFrom Question"
+      operationId: "getOutputFrom Exercise"
       consumes:
       - "application/x-www-form-urlencoded"
       produces:
       - "application/xml"
       - "application/json"
       parameters:
-      - name: "questionId"
+      - name: "exerciseId"
         in: "path"
-        description: "ID of question to evaluate"
+        description: "ID of exercise to evaluate"
         required: true
         type: "integer"
         format: "int64"
       responses:
         "200":
-          description: "successful operation. Return question"
+          description: "successful operation. Return exercise"
           schema:
-            $ref: "#/definitions/Question"
+            $ref: "#/definitions/Exercise"
         "400":
           description: "Invalid ID supplied"
         "404":
-          description: "Question not found"
+          description: "Exercise not found"
   /tickets:
     post:
       tags:
@@ -515,7 +515,7 @@ paths:
     get:
       tags:
       - "feedbackSystem"
-      summary: "Get a question from central repository"
+      summary: "Get a exercise from central repository"
       description: ""
       operationId: "getTicketFromFS"
       consumes:
@@ -541,7 +541,7 @@ paths:
         "200":
           description: "successful operation"
           schema:
-            $ref: "#/definitions/Question"
+            $ref: "#/definitions/Exercise"
         "405":
           description: "Invalid input"
 securityDefinitions:
@@ -570,7 +570,7 @@ definitions:
         $ref: "#/definitions/User"
       status:
         type: "string"
-        description: "Set of questions"
+        description: "Set of exercises"
         enum:
         - "draft"
         - "announced"
@@ -578,7 +578,7 @@ definitions:
         - "closed"
     xml:
       name: "Project"
-  Question:
+  Exercise:
     type: "object"
     required:
     - "title"
