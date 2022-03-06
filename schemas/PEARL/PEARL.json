@@ -48,6 +48,9 @@
                                 "program": {
                                     "type": "string"
                                 },
+                                "studentID": {
+                                    "type": "string"
+                                },
                                 "learningObject": {
                                     "type": "string",
                                     "format": "uuid"
@@ -55,7 +58,8 @@
                             },
                             "required": [
                                 "program",
-                                "learningObject"
+                                "learningObject",
+                                "studentID"
                             ]
                         },
                         {
