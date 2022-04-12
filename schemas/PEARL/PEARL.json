@@ -48,7 +48,8 @@
                                 "program": {
                                     "type": "string"
                                 },
-                                "studentID": {
+                                "
+                                ": {
                                     "type": "string"
                                 },
                                 "learningObject": {
@@ -59,7 +60,6 @@
                             "required": [
                                 "program",
                                 "learningObject",
-                                "studentID"
                             ]
                         },
                         {
