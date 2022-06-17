@@ -298,22 +298,11 @@
                 "feedback": {
                     "title": "Feedback",
                     "description": "Feedback messages associated with the test.",
-                    "type": "object",
-                    "properties": {
-                        "message": {
-                            "title": "Message",
-                            "description": "The message.",
-                            "type": "string"
-                        },
-                        "weight": {
-                            "title": "Weight",
-                            "description": "The weight of this message.",
-                            "type": "number"
-                        }
-                    },
-                    "required": [
-                        "message"
-                    ]
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Feedback"
+                    }
+
                 }
             },
             "required": [
@@ -462,6 +451,26 @@
             "required": [
                 "pathname",
                 "lang"
+            ]
+        },
+        "Feedback": {
+            "title": "Feedback",
+            "description": "Feedback messages associated with the test.",
+            "type": "object",
+            "properties": {
+                "message": {
+                    "title": "Message",
+                    "description": "The message.",
+                    "type": "string"
+                },
+                "weight": {
+                    "title": "Weight",
+                    "description": "The weight of this message.",
+                    "type": "number"
+                }
+            },
+            "required": [
+                "message"
             ]
         }
     }
