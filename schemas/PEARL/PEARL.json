@@ -196,6 +196,10 @@
                 "mark": {
                     "$ref": "/Mark"
                 },
+                "visible": {
+                    "type": "boolean",
+                    "default": false
+                },
                 "feedback": {
                     "type": "string"
                 },
@@ -209,6 +213,7 @@
                 "obtainedOutput",
                 "classify",
                 "mark",
+                "visible",
                 "feedback",
                 "environmentValues"
             ],
