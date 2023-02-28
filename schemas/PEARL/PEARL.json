@@ -134,6 +134,9 @@
                 "exercise": {
                     "type": "string"
                 },
+                "hint": {
+                    "type": "string"
+                },
                 "tests": {
                     "type": "array",
                     "items": {
