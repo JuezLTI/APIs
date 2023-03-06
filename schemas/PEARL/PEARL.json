@@ -134,9 +134,6 @@
                 "exercise": {
                     "type": "string"
                 },
-                "hint": {
-                    "type": "string"
-                },
                 "tests": {
                     "type": "array",
                     "items": {
@@ -202,6 +199,9 @@
                 "visible": {
                     "type": "boolean",
                     "default": false
+                },
+                "hint": {
+                    "type": "string"
                 },
                 "feedback": {
                     "type": "string"
