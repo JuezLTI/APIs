@@ -203,7 +203,7 @@
                 "hint": {
                     "type": "array"
                 },
-                "error": {
+                "feedback": {
                     "type": "string"
                 },
                 "environmentValues": {
@@ -257,14 +257,11 @@
                 "classify": {
                     "type": "string"
                 },
-                "errors": {
+                "feedback": {
                     "type": "array",
                     "items": {
                         "type": "string"
                     }
-                },
-                "feedback": {
-                    "type": "string"
                 },
                 "environmentValues": {
                     "$ref": "/EnvironmentValues"
