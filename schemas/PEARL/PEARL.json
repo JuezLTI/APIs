@@ -201,9 +201,9 @@
                     "default": false
                 },
                 "hint": {
-                    "type": "string"
+                    "type": "array"
                 },
-                "feedback": {
+                "error": {
                     "type": "string"
                 },
                 "environmentValues": {
@@ -257,11 +257,14 @@
                 "classify": {
                     "type": "string"
                 },
-                "feedback": {
+                "errors": {
                     "type": "array",
                     "items": {
                         "type": "string"
                     }
+                },
+                "feedback": {
+                    "type": "string"
                 },
                 "environmentValues": {
                     "$ref": "/EnvironmentValues"
