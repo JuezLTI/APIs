@@ -201,7 +201,7 @@
                     "default": false
                 },
                 "hint": {
-                    "type": "string"
+                    "type": "array"
                 },
                 "feedback": {
                     "type": "string"
